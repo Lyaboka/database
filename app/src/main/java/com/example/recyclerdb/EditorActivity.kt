@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.example.recyclerdb.mydb.MyDBHelper
+import com.example.recyclerdb.mydb.MyDBManager
 
 class EditorActivity : AppCompatActivity() {
     private lateinit var nameET : EditText
@@ -18,13 +20,13 @@ class EditorActivity : AppCompatActivity() {
         setContentView(R.layout.activity_editor)
         initView()
         addEmployee.setOnClickListener {
-            val db = MyDBHelper(this,null)
+            val myDBManager = MyDBManager(this)
 
             val name = nameET.text.toString()
             val post = postET.text.toString()
             val salary = (salaryET.text.toString()).toInt()
-
-            db.addEmployee(name,post,salary)
+            myDBManager.openDb()
+            myDBManager.addEmployee(name,post,salary)
             Toast.makeText(this, "$name added to database!", Toast.LENGTH_LONG)
 
             nameET.text.clear()

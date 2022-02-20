@@ -6,13 +6,19 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/largeTV"
+        android:id="@+id/nameTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"/>
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textSize="16sp" />
 
     <TextView
-        android:id="@+id/smallTV"
+        android:id="@+id/postTV"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceSmall"/>
+    <TextView
+        android:id="@+id/salaryTV"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceSmall"/>

@@ -5,6 +5,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.recyclerdb.mydb.MyDBManager
 
 class CustomRecyclerAdapter
     ( private val names: List<String>,
@@ -12,8 +13,9 @@ class CustomRecyclerAdapter
       private val salaries: List<Int>) : RecyclerView.Adapter<CustomRecyclerAdapter.MyViewHolder>(){
 
     class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val largeTV: TextView = itemView.findViewById(R.id.largeTV)
-        val smallTV: TextView = itemView.findViewById(R.id.smallTV)
+        val largeTV: TextView = itemView.findViewById(R.id.nameTV)
+        val postTV: TextView = itemView.findViewById(R.id.postTV)
+        val salaryTV: TextView = itemView.findViewById(R.id.salaryTV)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -24,8 +26,10 @@ class CustomRecyclerAdapter
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
         holder.largeTV.text = names[position]
-        holder.smallTV.text = (posts + salaries).toString()
+        holder.postTV.text = posts[position]
+        holder.salaryTV.text = (salaries[position]).toString() + " rub"
     }
 
     override fun getItemCount() = names.size
