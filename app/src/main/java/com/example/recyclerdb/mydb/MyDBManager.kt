@@ -6,6 +6,8 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 
 class MyDBManager(val context: Context) {
+
+    val employeeList = ArrayList<Employee>()
     val myDBHelper = MyDBHelper(context)
     var db: SQLiteDatabase? = null
 
@@ -23,39 +25,20 @@ class MyDBManager(val context: Context) {
         db?.insert(DbNames.TABLE_NAME, null, values)
     }
 
-    fun getNamesEmployee(): ArrayList<String> {
-        val nameList = ArrayList<String>()
+    fun getEmployee(): ArrayList<Employee> {
+
         val cursor = db?.query(DbNames.TABLE_NAME, null, null, null, null, null, null)
 
             while (cursor?.moveToNext()!!) {
-                val dataText = cursor.getString(cursor.getColumnIndexOrThrow(DbNames.NAME_COL))
-                nameList.add(dataText.toString())
+                val name = cursor.getString(cursor.getColumnIndexOrThrow(DbNames.NAME_COL))
+                val post = cursor.getString(cursor.getColumnIndexOrThrow(DbNames.POST_COL))
+                val salary = cursor.getInt(cursor.getColumnIndexOrThrow(DbNames.SALARY_COL))
+                employeeList.add(Employee(name, post, salary))
             }
         cursor.close()
-        return nameList
+        return employeeList
         }
-    fun getPostsEmployee(): ArrayList<String> {
-        val postList = ArrayList<String>()
-        val cursor = db?.query(DbNames.TABLE_NAME, null, null, null, null, null, null)
 
-        while (cursor?.moveToNext()!!) {
-            val dataText = cursor.getString(cursor.getColumnIndexOrThrow(DbNames.POST_COL))
-            postList.add(dataText.toString())
-        }
-        cursor.close()
-        return postList
-    }
-    fun getSalariesEmployee(): ArrayList<Int> {
-        val salaryList = ArrayList<Int>()
-        val cursor = db?.query(DbNames.TABLE_NAME, null, null, null, null, null, null)
-
-        while (cursor?.moveToNext()!!) {
-            val dataText = cursor.getInt(cursor.getColumnIndexOrThrow(DbNames.SALARY_COL))
-            salaryList.add(dataText)
-        }
-        cursor.close()
-        return salaryList
-    }
 
 
     fun closeDb() {
