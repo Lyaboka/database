@@ -14,8 +14,10 @@ import com.example.recyclerdb.mydb.MyDBManager
 class MainActivity : AppCompatActivity() {
 
     lateinit var binding : ActivityMainBinding
+
     val myDBManager = MyDBManager(this)
     val adapter = EmployeeAdapter()
+    lateinit var employeeList : ArrayList<Employee>
     private var i = 0
 
 
@@ -32,11 +34,16 @@ class MainActivity : AppCompatActivity() {
             startActivity(intent) }
     }
 
+    override fun onDestroy() {
+        super.onDestroy()
+        myDBManager.closeDb()
+    }
+
     private fun init() {
         binding.apply {
-            recyclerView.layoutManager = GridLayoutManager(this@MainActivity, 3)
+            recyclerView.layoutManager = LinearLayoutManager(this@MainActivity)
             recyclerView.adapter = adapter
-            val employeeList = myDBManager.getEmployee()
+            employeeList = myDBManager.getEmployee()
             printEmployee.setOnClickListener{
                 if (i < employeeList.size) {
                     if (employeeList.size - (i) >= 3) {
@@ -46,7 +53,7 @@ class MainActivity : AppCompatActivity() {
                             i++
                         }
                     }
-                else {
+                    else {
                         val employee = employeeList[i]
                         adapter.addEmployee(employee)
                         i++
@@ -56,13 +63,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onResume() {
-        super.onResume()
 
-    }
 
-    override fun onDestroy() {
-        super.onDestroy()
-        myDBManager.closeDb()
-    }
 }

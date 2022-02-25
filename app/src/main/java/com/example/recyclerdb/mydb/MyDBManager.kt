@@ -29,17 +29,15 @@ class MyDBManager(val context: Context) {
 
         val cursor = db?.query(DbNames.TABLE_NAME, null, null, null, null, null, null)
 
-            while (cursor?.moveToNext()!!) {
-                val name = cursor.getString(cursor.getColumnIndexOrThrow(DbNames.NAME_COL))
-                val post = cursor.getString(cursor.getColumnIndexOrThrow(DbNames.POST_COL))
-                val salary = cursor.getInt(cursor.getColumnIndexOrThrow(DbNames.SALARY_COL))
-                employeeList.add(Employee(name, post, salary))
-            }
+        while (cursor?.moveToNext()!!) {
+            val name = cursor.getString(cursor.getColumnIndexOrThrow(DbNames.NAME_COL))
+            val post = cursor.getString(cursor.getColumnIndexOrThrow(DbNames.POST_COL))
+            val salary = cursor.getInt(cursor.getColumnIndexOrThrow(DbNames.SALARY_COL))
+            employeeList.add(Employee(name, post, salary))
+        }
         cursor.close()
         return employeeList
-        }
-
-
+    }
 
     fun closeDb() {
         myDBHelper.close()
