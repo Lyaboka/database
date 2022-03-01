@@ -38,6 +38,9 @@ class EmployeeAdapter : RecyclerView.Adapter<EmployeeAdapter.EmployeeHolder>(){
 
     fun addEmployee(empl: Employee) {
         employeeList.add(empl)
-        notifyDataSetChanged()
+    }
+
+    fun deleteItem(empl: Employee){
+        employeeList.remove(empl)
     }
 }
